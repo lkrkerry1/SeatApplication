@@ -1,3 +1,4 @@
+import os
 import .utils.constants
 
 def read_names():
