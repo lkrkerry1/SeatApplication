@@ -1,0 +1,3 @@
+GroupNum=3
+LineOfGroup=2
+ColumnOfGroup=6,6,7

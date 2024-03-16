@@ -38,8 +38,11 @@ def read_names() -> List[str]:
     with open(constants.NAME_FILE) as f:
         return f.read().splitlines()
 
-def read_rules() -> Tuple[Dict[str, str]]:
+def read_rules(names: List[str]) -> Tuple[Dict[str, str]]:
     """Reads the rules of the specified properties
+
+    Args:
+        names (List[str]): The names given
 
     Returns:
         Dict[str, str]: a dict of the rules
@@ -54,8 +57,15 @@ def read_rules() -> Tuple[Dict[str, str]]:
                 idx = 1
                 continue
             key, value = line.split(':')
+            if idx == WHITELIST and key in rules[idx]:
+                raise ValueError("Invalid whitesList rule with key '%s' and value '%s'"% key %value)
+            if idx == BLACKLIST and key in rules[idx] and rules[idx][key] == value:
+                raise ValueError("Invalid blackList rule being multiple: key '%s' and value '%s'"% key %value)
+            if key not in names:
+                raise ValueError("Invalid rule with '%s' which is not in names"%key)
+            if value not in names:
+                raise ValueError("Invalid rule with '%s' which is not in names"%value)
             rules[idx][key] = value
-            rules[idx][value] = key # a twoway map of the rules
     return rules
 
 def output():
