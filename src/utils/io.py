@@ -80,3 +80,10 @@ def output(table: List[List[List[str]]]) -> None:
                 print(table[i][j][k], end=" ")
             print()
         print()
+    with open(constants.OUTPUT_DIR, 'w') as f:
+        for i in range(len(table)):
+            for j in range(len(table[i])):
+                for k in range(len(table[i][j])):
+                    f.write(table[i][j][k] + " ")
+                f.write("\n")
+            f.write("\n")
