@@ -88,10 +88,10 @@ def rand_others(names:List[str], table:List[List[List[str]]], status:Dict[str, b
     for column in range(start_column, len(table)):
         for row in range(len(table[column])):
             for pos in (0, 1):
+                while current_name < len(names) and status[names[current_name]] == True:
+                    current_name += 1
                 if current_name >= len(names):
                     return table
-                while status[names[current_name]] == True:
-                    current_name += 1
                 if table[column][row][pos] == '':
                     table[column][row][pos] = names[current_name]
                     status[names[current_name]] = True
