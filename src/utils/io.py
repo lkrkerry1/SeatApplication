@@ -68,5 +68,15 @@ def read_rules(names: List[str]) -> Tuple[Dict[str, str]]:
             rules[idx][key] = value
     return rules
 
-def output():
-    pass
+def output(table: List[List[List[str]]]) -> None:
+    """Output the table
+
+    Args:
+        table (List[List[List[str]]]): The table given
+    """
+    for i in range(len(table)):
+        for j in range(len(table[i])):
+            for k in range(len(table[i][j])):
+                print(table[i][j][k], end=" ")
+            print()
+        print()

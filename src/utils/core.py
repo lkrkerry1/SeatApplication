@@ -125,4 +125,5 @@ def rdesk():
         print("Have put others", table)
     if(constants.DEBUG):
         check()
-    io.output()
+    print("The table: ")
+    io.output(table)
