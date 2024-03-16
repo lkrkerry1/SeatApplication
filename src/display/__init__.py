@@ -1,1 +1,1 @@
-imort cli, gui
+from display import *
