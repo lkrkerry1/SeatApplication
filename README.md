@@ -29,6 +29,10 @@ python -m pip install requirements.txt -r
 
 1.  下载发布版后先解压！
 2.  相关的配置文件在根目录
+3.  ./dat/name.txt 存储所有名称
+4.  ./dat/rules.txt 存储所有用户自定义规则（格式见样例）
+5.  ./dat/table.txt 存储大组数（GroupNum），每组的列数（暂时只支持2），依次每组的行数（ColumnOfGroup），具体见样例
+6.  ./dat/output.txt 存储输出
 
 #### 参与贡献
 
