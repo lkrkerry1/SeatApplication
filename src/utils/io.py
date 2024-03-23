@@ -18,6 +18,7 @@ class SeatingTable(): # Todo: finish document
         self.names = []
         self.rules = ({},{})
         self.status = {}
+        self.table_num = {}
         self.read_table()
         self.read_names()
         self.read_rules()
@@ -26,19 +27,18 @@ class SeatingTable(): # Todo: finish document
         """Reads the table given
         """
         table = self.table
-        table_num = {}
         with open(self.table_path) as f:
             for line in f.read().splitlines():
                 key, value = line.split('=', 1)
                 if key == "ColumnOfGroup":
-                    table_num["ColumnOfGroup"] = [int(i) for i in value.split(",")]
+                    self.table_num["ColumnOfGroup"] = [int(i) for i in value.split(",")]
                     continue
-                table_num[key] = int(value)
-        for i in range(table_num["GroupNum"]):
+                self.table_num[key] = int(value)
+        for i in range(self.table_num["GroupNum"]):
             table.append([])
-            for j in range(table_num["ColumnOfGroup"][i]):
+            for j in range(self.table_num["ColumnOfGroup"][i]):
                 table[i].append([])
-                for _ in range(table_num["LineOfGroup"]):
+                for _ in range(self.table_num["LineOfGroup"]):
                     table[i][j].append("")
         self.table = table
 
@@ -54,7 +54,6 @@ class SeatingTable(): # Todo: finish document
         """Reads the rules of the specified properties
         """
         rules = self.rules
-        names = self.names
         with open(self.rule_path) as f:
             for line in f.read().splitlines():
                 if "[WhiteList]" in line:
@@ -64,16 +63,43 @@ class SeatingTable(): # Todo: finish document
                     idx = 1
                     continue
                 key, value = line.split(':')
-                if idx == WHITELIST and key in rules[idx]:
-                    raise ValueError("Invalid whitesList rule with key '%s' and value '%s'"% key %value)
-                if idx == BLACKLIST and key in rules[idx] and rules[idx][key] == value:
-                    raise ValueError("Invalid blackList rule being multiple: key '%s' and value '%s'"% key %value)
-                if key not in names:
-                    raise ValueError("Invalid rule with '%s' which is not in names"%key)
-                if value not in names:
-                    raise ValueError("Invalid rule with '%s' which is not in names"%value)
-                rules[idx][key] = value
+                if key in rules[idx]:
+                    rules[idx][key].append(value)
+                else:
+                    rules[idx][key] = [value]
+                if value in rules[idx]:
+                    rules[idx][value].append(key)
+                else:
+                    rules[idx][value] = [key]
         self.rules = rules
+        self.check()
+        
+    def check(self) -> None:
+        """Check if the rules fits the given
+        """
+        names = self.names
+        # White List
+        for k,v in self.rules[WHITELIST].items():
+            if(k not in names):
+                raise ValueError("Invalid rule with '%s' which is not in names"%k)
+            for vn in v:
+                if(vn not in names):
+                    raise ValueError("Invalid rule with '%s' which is not in names"%vn)
+                if vn in self.rules[BLACKLIST] and k in self.rules[BLACKLIST][vn]: # White list is same as blacklist
+                    raise ValueError("Invalid rule with {} and {} in both white and black lists".format(vn,k))
+                if len(v) > 1:
+                    raise ValueError("Name {} appeared mutiple times".format(k))
+                if v.count(vn) > 1:
+                    raise ValueError("Name {} appeared mutiple times in key {}".format(vn,k))
+        # Black List
+        for k,v in self.rules[BLACKLIST].items():
+            if(k not in names):
+                raise ValueError("Invalid rule with '%s' which is not in names"%k)
+            for vn in v:
+                if(vn not in names):
+                    raise ValueError("Invalid rule with '%s' which is not in names"%vn)
+                if v.count(vn) > 1:
+                    raise ValueError("Name {} appeared mutiple times in key {}".format(vn,k))
 
     def __str__(self) -> str:
         """Output the table
@@ -90,4 +116,4 @@ class SeatingTable(): # Todo: finish document
     
     def save(self) -> None: # finish document
         with open(self.output_path, 'w') as f:
-            f.write(self.__str__)
+            f.write(self.__str__())
