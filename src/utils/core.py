@@ -26,7 +26,10 @@ def put_musnt(seating:io.SeatingTable) -> io.SeatingTable:
                 while (column == -1 and row == -1) or (seating.table[column][row][0] != "") \
                                                 or seating.table[column][row][pos^1] == i: # bumped into the blacklist
                     column = random.randint(0, len(seating.table) - 1) # choose a random group
-                    row = random.randint(0, len(seating.table[column]) - 1) # choose a random row
+                    if column == len(seating.table) - 1:
+                        row = random.randint(0, len(seating.table[column]) - 2)
+                    else:
+                        row = random.randint(0, len(seating.table[column]) - 1) # choose a random row
                 seating.table[column][row][1] = j
                 seating.status[i] = seating.status[j] = True
     return seating
@@ -46,7 +49,10 @@ def put_must(seating:io.SeatingTable)-> io.SeatingTable:
             random.shuffle(desk) # randomize the deskmates
             while (column == -1 and row == -1) or (seating.table[column][row][0] != ""):
                 column = random.randint(0, len(seating.table) - 1) # choose a random group
-                row = random.randint(0, len(seating.table[column]) - 1) # choose a random row
+                if column == len(seating.table) - 1:
+                    row = random.randint(0, len(seating.table[column]) - 2)
+                else:
+                    row = random.randint(0, len(seating.table[column]) - 1) # choose a random row
             seating.table[column][row] = desk
     return seating
 
@@ -55,6 +61,9 @@ def rand_others(seating:io.SeatingTable) -> io.SeatingTable:
     """ 
     for names in seating.names.values():
         random.shuffle(names)
+        if len(names) % seating.table_num["LineOfGroup"] != 0:
+            seating.table[-1][-1][0] = names[0]
+            seating.status[names[0]] = True
         start_column = 0
         current_name = 0
         for column in range(start_column, len(seating.table)):
