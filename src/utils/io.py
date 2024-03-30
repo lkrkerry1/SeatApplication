@@ -15,7 +15,7 @@ class SeatingTable(): # Todo: finish document
         self.rule_path = rule_path
         self.output_path = output_path
         self.table = []
-        self.names = []
+        self.names = {"other":[]}
         self.rules = ({},{})
         self.status = {}
         self.table_num = {}
@@ -45,10 +45,15 @@ class SeatingTable(): # Todo: finish document
     def read_names(self) -> None:
         """Reads the names of the specified properties
         """
+        id = "other"
         with open(self.name_path) as f:
-            self.names = f.read().splitlines()
-        for i in self.names:
-            self.status[i] = False
+            for line in f.read().splitlines():
+                if line[0]=="[" and line[-1]=="]":
+                    id=line[1:-1]
+                    self.names[id]=[]
+                    continue
+                self.names[id].append(line)
+                self.status[line] = False
 
     def read_rules(self) -> None:
         """Reads the rules of the specified properties
@@ -77,7 +82,7 @@ class SeatingTable(): # Todo: finish document
     def check(self) -> None:
         """Check if the rules fits the given
         """
-        names = self.names
+        names = self.status.keys()
         # White List
         for k,v in self.rules[WHITELIST].items():
             if(k not in names):

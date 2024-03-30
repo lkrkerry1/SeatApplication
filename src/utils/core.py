@@ -53,25 +53,44 @@ def put_must(seating:io.SeatingTable)-> io.SeatingTable:
 def rand_others(seating:io.SeatingTable) -> io.SeatingTable:
     """Put all the others in the given table
     """ 
-    names = seating.names
-    random.shuffle(names)
-    start_column = 0
-    current_name = 0
-    for column in range(start_column, len(seating.table)):
-        for row in range(len(seating.table[column])):
-            for pos in (0, 1):
-                while current_name < len(names) and seating.status[names[current_name]] == True:
-                    current_name += 1
+    for names in seating.names.values():
+        random.shuffle(names)
+        start_column = 0
+        current_name = 0
+        for column in range(start_column, len(seating.table)):
+            if current_name >= len(names):
+                break
+            for row in range(len(seating.table[column])):
                 if current_name >= len(names):
-                    return seating
-                if seating.table[column][row][pos] == '':
-                    seating.table[column][row][pos] = names[current_name]
-                    seating.status[names[current_name]] = True
-                    current_name += 1
+                    break
+                for pos in (0, 1):
+                    while current_name < len(names) and seating.status[names[current_name]] == True:
+                        current_name += 1
+                    if current_name >= len(names):
+                        break
+                    if seating.table[column][row][pos] == '':
+                        seating.table[column][row][pos] = names[current_name]
+                        seating.status[names[current_name]] = True
+                        current_name += 1
     return seating
 
-def check(seating:io.SeatingTable) -> io.SeatingTable:
-    
+def reproduce(seating:io.SeatingTable) -> io.SeatingTable:
+    table = []
+    for i in range(len(seating.table)):
+        for j in range(len(seating.table[i])):
+            if len(seating.table[i][j]) <= seating.table_num["LineOfGroup"]:
+                continue
+            table.append(seating.table[i][j])
+    random.shuffle(table)
+    cnt = 0
+    for i in range(len(seating.table)):
+        if cnt >= len(table):
+            break
+        for j in range(len(seating.table[i])):
+            if cnt >= len(table):
+                break
+            seating.table[i][j] = table[cnt]
+            cnt += 1
     return seating
 
 def rdesk():
@@ -87,6 +106,6 @@ def rdesk():
     seating = rand_others(seating)
     if constants.DEBUG:
         print("Rand Others: ", seating.table)
-    seating = check(seating)
+    seating = reproduce(seating)
     print(seating)
     seating.save()

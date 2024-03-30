@@ -142,4 +142,3 @@ cython_debug/
 
 # Data files
 dat/*.txt
-dat/name.txt
