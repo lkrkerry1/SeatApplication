@@ -83,23 +83,19 @@ def rand_others(seating:io.SeatingTable) -> io.SeatingTable:
                         current_name += 1
     return seating
 
-def reproduce(seating:io.SeatingTable) -> io.SeatingTable:
-    table = []
-    for i in range(len(seating.table)):
-        for j in range(len(seating.table[i])):
-            if len(seating.table[i][j]) <= seating.table_num["LineOfGroup"]:
-                continue
-            table.append(seating.table[i][j])
-    random.shuffle(table)
-    cnt = 0
-    for i in range(len(seating.table)):
-        if cnt >= len(table):
-            break
-        for j in range(len(seating.table[i])):
-            if cnt >= len(table):
-                break
-            seating.table[i][j] = table[cnt]
-            cnt += 1
+def reproduce(seating:io.SeatingTable) -> io.SeatingTable:# Todo: change into name lens
+    for i in range(100):
+        col=random.randint(0,len(seating.table)-1)
+        row=random.randint(0,len(seating.table[col])-1)
+        if col == len(seating.table)-1:
+            row=random.randint(0,len(seating.table[col])-2)
+        col2=random.randint(0,len(seating.table)-1)
+        row2=random.randint(0,len(seating.table[col2])-1)
+        if col2 == len(seating.table)-1:
+            row2=random.randint(0,len(seating.table[col2])-2)
+        tmp=seating.table[col][row]
+        seating.table[col][row]=seating.table[col2][row2]
+        seating.table[col2][row2]=tmp
     return seating
 
 def rdesk():
