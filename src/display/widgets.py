@@ -1,6 +1,5 @@
-
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtCore import Qt
+
 
 class ClickableLabel(QtWidgets.QLabel):
     def __init__(self, parent=None):
@@ -10,24 +9,19 @@ class ClickableLabel(QtWidgets.QLabel):
         self.clicked.emit()
 
     clicked = QtCore.pyqtSignal()
-    
-class DraggableWindow(QtWidgets.QWidget):
+
+
+class MyWindow(QtWidgets.QMainWindow):
     def __init__(self, parent=None):
         super().__init__(parent)
-        self.setWindowFlags(Qt.FramelessWindowHint)
-        self.draggable = False
-        self.offset = None
 
-    def mousePressEvent(self, event):
-        if event.button() == Qt.LeftButton:
-            self.draggable = True
-            self.offset = event.pos()
+    def setupUi(self, name, title="default title", parent=None):
+        self.main = QtWidgets.QMainWindow(parent)
+        self.main.resize(1600, 900)
+        self.main.setObjectName(name)
+        self.back = ClickableLabel(self.main)
+        self.back.setGeometry(0, 0, 30, 30)
+        self.main.setWindowTitle(title)
 
-    def mouseMoveEvent(self, event):
-        if self.draggable:
-            self.move(event.globalPos() - self.offset)
-
-    def mouseReleaseEvent(self, event):
-        if event.button() == Qt.LeftButton:
-            self.draggable = False
-            
+    def close(self):
+        super().close()
