@@ -1,4 +1,6 @@
 from typing import *
+import pickle
+
 from utils import constants
 
 WHITELIST = 0
@@ -17,6 +19,7 @@ class SeatingTable:  # Todo: finish document
         self.name_path = name_path
         self.rule_path = rule_path
         self.output_path = output_path
+        self.prob = []
         self.table = []
         self.names = {"other": []}
         self.rules = ({}, {})
@@ -134,3 +137,14 @@ class SeatingTable:  # Todo: finish document
     def save(self) -> None:  # finish document
         with open(self.output_path, "w") as f:
             f.write(self.__str__())
+        with open(self.output_path+".b","wb")as f:
+            pickle.dump(self,f)
+
+
+def read_history(path:str=constants.OUTPUT_DIR) -> List[SeatingTable]:
+    result = []
+    tmp = SeatingTable()
+    with open(path+".b","rb") as f:
+        tmp = pickle.load(f)
+        result.append(tmp)
+    return result

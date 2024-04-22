@@ -137,5 +137,5 @@ def rdesk():
         print("Rand Others: ", seating.table)
     seating = reproduce(seating)
     print(seating)
-    seating.save()
+    seating.save()  # TODO: put into a button
     return seating
