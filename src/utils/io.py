@@ -20,7 +20,7 @@ class SeatingTable:  # Todo: finish document
         self.rule_path = rule_path
         self.output_path = output_path
         self.prob = []
-        self.table = []
+        self.table = {}
         self.names = {"other": []}
         self.rules = ({}, {})
         self.status = {}
@@ -49,15 +49,19 @@ class SeatingTable:  # Todo: finish document
 
     def read_names(self) -> None:
         """Reads the names of the specified properties"""
-        id = "other"
+        idx = "other"
         with open(self.name_path) as f:
             for line in f.read().splitlines():
                 if line[0] == "[" and line[-1] == "]":
-                    id = line[1:-1]
-                    self.names[id] = []
+                    idx = line[1:-1]
+                    self.names[idx] = []
                     continue
-                self.names[id].append(line)
+                self.names[idx].append(line)
                 self.status[line] = False
+                self.prob[line] = [
+                    [constants.START_PROBABILITY] * self.table_num["ColumnOfGroup"][i]
+                    for i in range(self.table_num["GroupNum"])
+                ]
 
     def read_rules(self) -> None:
         """Reads the rules of the specified properties"""

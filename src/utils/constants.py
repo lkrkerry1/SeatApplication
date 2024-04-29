@@ -11,3 +11,6 @@ RULES_FILE = os.path.join(DATA_DIR, "rules.txt")
 TABLE_FILE = os.path.join(DATA_DIR, "table.txt")
 OUTPUT_DIR = os.path.join(DATA_DIR, "output")
 OUTPUT_DIR = os.path.join(OUTPUT_DIR, str(time.time())+".txt")
+
+START_PROBABILITY = 100
+DELTA_PROBABILITY = [20, 15, 10, 5, 0]

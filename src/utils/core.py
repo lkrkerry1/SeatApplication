@@ -107,7 +107,7 @@ def rand_others(seating: io.SeatingTable) -> io.SeatingTable:
 def reproduce(
     seating: io.SeatingTable,
 ) -> io.SeatingTable:  # Todo: change into name lens
-    for i in range(100):
+    for i in range(10000): # TODO: dynamic probability
         col = random.randint(0, len(seating.table) - 1)
         row = random.randint(0, len(seating.table[col]) - 1)
         if col == len(seating.table) - 1:
