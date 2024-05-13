@@ -139,5 +139,5 @@ class SeatingTable:
         filename = os.path.join(self.output_path, str(time.time()))
         with open("{}.txt".format(filename), "w") as f:
             f.write(self.__str__())
-        with open("{}.dat", "wb") as f:
+        with open("{}.dat".format(filename), "wb") as f:
             pickle.dump(self.table, f)
