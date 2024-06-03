@@ -19,11 +19,12 @@ def put_musnt(seating: io.SeatingTable) -> io.SeatingTable:
                     seating.table[column][row][0] != ""
                 ):
                     column = random.randint(
-                    0, len(seating.table) - 1
-                )  # choose a random group
-                    row= random.choices(range(len(seating.table[column])), 
-                        weights=seating.prob)
-                    )  # choose a random row
+                        0, len(seating.table) - 1
+                    )  # choose a random group
+                    row = random.choices(
+                        range(len(seating.table[column])), weights=seating.prob
+                    )
+                    # choose a random row
                 seating.table[column][row][0] = i
             if seating.status[j] == False:
                 column = -1
@@ -38,13 +39,15 @@ def put_musnt(seating: io.SeatingTable) -> io.SeatingTable:
                         0, len(seating.table) - 1
                     )  # choose a random group
                     if column == len(seating.table) - 1:
-                        row= random.choices(range(len(seating.table[column])-1), 
-                        weights=seating.prob)
-                    )  # choose a random row
+                        row = random.choices(
+                            range(len(seating.table[column]) - 1), weights=seating.prob
+                        )
+                    # choose a random row
                     else:
-                        row= random.choices(range(len(seating.table[column])), 
-                            weights=seating.prob)
-                        )  # choose a random row
+                        row = random.choices(
+                            range(len(seating.table[column])), weights=seating.prob
+                        )
+                        # choose a random row
                 seating.table[column][row][1] = j
                 seating.status[i] = seating.status[j] = True
     return seating
@@ -67,13 +70,15 @@ def put_must(seating: io.SeatingTable) -> io.SeatingTable:
                     0, len(seating.table) - 1
                 )  # choose a random group
                 if column == len(seating.table) - 1:
-                    row= random.choices(range(len(seating.table[column])-1), 
-                        weights=seating.prob)
-                    )  # choose a random row
+                    row = random.choices(
+                        range(len(seating.table[column]) - 1), weights=seating.prob
+                    )
+                    # choose a random row
                 else:
-                    row= random.choices(range(len(seating.table[column])), 
-                        weights=seating.prob)
-                    )  # choose a random row
+                    row = random.choices(
+                        range(len(seating.table[column])), weights=seating.prob
+                    )
+                    # choose a random row
             seating.table[column][row] = desk
     return seating
 
@@ -113,7 +118,7 @@ def reproduce(
     seating: io.SeatingTable,
 ) -> io.SeatingTable:  # Todo: change into name lens
     # 将要弃置！
-    for i in range(10000): # TODO: dynamic probability
+    for i in range(10000):  # TODO: dynamic probability
         col = random.randint(0, len(seating.table) - 1)
         row = random.randint(0, len(seating.table[col]) - 1)
         if col == len(seating.table) - 1:

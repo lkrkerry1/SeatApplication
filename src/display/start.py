@@ -21,7 +21,9 @@ class Ui_StartWindow(MyWindow):
         self.video_widget.setGeometry(0, 0, 1600, 900)
         self.media_player.setVideoOutput(self.video_widget)
         self.media = QtMultimedia.QMediaContent(
-            QtCore.QUrl.fromLocalFile(os.path.join(cst.ASSETS_DIR, "randomize.avi"))
+            QtCore.QUrl.fromLocalFile(
+                os.path.join(cst.ASSETS_DIR, "randomize.avi")
+            )  # TODO: add skip button
         )
         self.media_player.setMedia(self.media)
         self.video_widget.lower()
@@ -72,7 +74,7 @@ class Ui_StartWindow(MyWindow):
             data = QtWidgets.QTableWidgetItem(
                 str(i // seating.table_num["LineOfGroup"] + 1)
             )
-            data.setFont(QtGui.QFont("宋体", 32, QtGui.QFont.Black))
+            data.setFont(QtGui.QFont("宋体", 64, QtGui.QFont.Black))
             data.setTextAlignment(QtCore.Qt.AlignCenter)
             self.table.setItem(
                 0,
@@ -90,7 +92,7 @@ class Ui_StartWindow(MyWindow):
                         i % seating.table_num["LineOfGroup"]
                     ]
                 )
-                data.setFont(QtGui.QFont("宋体", 32, QtGui.QFont.Black))
+                data.setFont(QtGui.QFont("宋体", 64, QtGui.QFont.Black))
                 data.setTextAlignment(QtCore.Qt.AlignCenter)
                 self.table.setItem(
                     j + 1,

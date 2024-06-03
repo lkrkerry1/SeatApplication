@@ -143,3 +143,4 @@ cython_debug/
 # Data files
 dat/*.txt
 *test*.*
+assets/
