@@ -1,13 +1,16 @@
+import os
+import pickle
 from typing import *
 import pickle
 
+import time
 from utils import constants
 
 WHITELIST = 0
 BLACKLIST = 1
 
 
-class SeatingTable:  # Todo: finish document
+class SeatingTable:
     def __init__(
         self,
         table_path=constants.TABLE_FILE,
@@ -139,16 +142,9 @@ class SeatingTable:  # Todo: finish document
         return output
 
     def save(self) -> None:  # finish document
-        with open(self.output_path, "w") as f:
+        """Save the table into txt and dat"""
+        filename = os.path.join(self.output_path, str(time.time()))
+        with open("{}.txt".format(filename), "w") as f:
             f.write(self.__str__())
-        with open(self.output_path+".b","wb")as f:
-            pickle.dump(self,f)
-
-
-def read_history(path:str=constants.OUTPUT_DIR) -> List[SeatingTable]:
-    result = []
-    tmp = SeatingTable()
-    with open(path+".b","rb") as f:
-        tmp = pickle.load(f)
-        result.append(tmp)
-    return result
+        with open("{}.dat".format(filename), "wb") as f:
+            pickle.dump(self.table, f)

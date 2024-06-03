@@ -1,11 +1,13 @@
 from display.widgets import *
 from PyQt5 import QtWidgets
+
 import os
 
 
 class Ui_HistoryWindow:
     def __init__(self):
         self.main = QtWidgets.QMainWindow()
+        self.main.resize(1600, 900)
         self.main.resize(1600, 900)
         self.main.setObjectName("history")
         self.back = ClickableLabel(self.main)
@@ -24,8 +26,14 @@ class Ui_HistoryWindow:
             QtWidgets.QAbstractItemView.NoEditTriggers
         )  # TODO: Change into can edit and add a save button
 
+        self.back.setGeometry(0, 0, 80, 80)
+
     def show(self):
         self.main.show()
+
+    def close(self):
+        self.main.close()
+
         self.display(["a", "b", "c"])
 
     def display(self, files):

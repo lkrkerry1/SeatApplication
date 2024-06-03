@@ -141,6 +141,4 @@ cython_debug/
 *.zip
 
 # Data files
-dat/*.txt
-*test*.*
 assets/

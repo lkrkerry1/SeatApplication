@@ -20,10 +20,10 @@ class Ui_StartWindow(MyWindow):
         self.video_widget = PyQt5.QtMultimediaWidgets.QVideoWidget(self.main)
         self.video_widget.setGeometry(0, 0, 1600, 900)
         self.media_player.setVideoOutput(self.video_widget)
+        if cst.DEBUG:
+            print("opening {}".format(cst.RANDOM_VEDIO).replace("\\", "/"))
         self.media = QtMultimedia.QMediaContent(
-            QtCore.QUrl.fromLocalFile(
-                os.path.join(cst.ASSETS_DIR, "randomize.avi")
-            )  # TODO: add skip button
+            QtCore.QUrl.fromLocalFile(cst.RANDOM_VEDIO.replace("\\", "/"))
         )
         self.media_player.setMedia(self.media)
         self.video_widget.lower()
