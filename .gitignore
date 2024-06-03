@@ -142,3 +142,4 @@ cython_debug/
 
 # Data files
 dat/*.txt
+/assets
