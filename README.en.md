@@ -1,36 +1,45 @@
 # SeatApplication
 
-#### Description
-自动排座位，支持自定义规则和特效（暂时只制作了cli）
+#### Introduction
 
-#### Software Architecture
-Software architecture description
+Modelized designed to generate seating tables, it includes rules by users and uis(only cli finished).
+
+#### Todos
+1. [x] Finish core
+2. [x] Finish CLI
+3. [ ] Finish GUI(current)
+4. [ ] Dynamic probability
 
 #### Installation
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+1.  Install virtualenv
 
-#### Instructions
+```bash
+python -m pip install virtualenv
+```
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+2.  Install environment
 
-#### Contribution
+```bash
+python -m pip install requirements.txt -r
+```
 
-1.  Fork the repository
-2.  Create Feat_xxx branch
-3.  Commit your code
-4.  Create Pull Request
+3.  Start using!
 
+#### Read before use
 
-#### Gitee Feature
+1.  unzip after the download
+2.  the settings files are in assets/settings
+3.  ./assets/settings/name.txt saves all the names
+4.  ./assets/settings/rules.txt saves all the rules
+5.  ./assets/settings/table.txt saves group nums（GroupNum），columns（暂时只支持2），rows（ColumnOfGroup）
+6.  ./assets/history/ save outputs
+7.  ./assets/audio/ media
 
-1.  You can use Readme\_XXX.md to support different languages, such as Readme\_en.md, Readme\_zh.md
-2.  Gitee blog [blog.gitee.com](https://blog.gitee.com)
-3.  Explore open source project [https://gitee.com/explore](https://gitee.com/explore)
-4.  The most valuable open source project [GVP](https://gitee.com/gvp)
-5.  The manual of Gitee [https://gitee.com/help](https://gitee.com/help)
-6.  The most popular members  [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)
+#### Contributions
+
+1.  Fork this repo
+2.  Add a new branch: feat_xxx
+3.  Submit your code
+4.  Make a pull request to dev!
+
