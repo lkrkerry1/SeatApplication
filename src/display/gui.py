@@ -10,6 +10,7 @@ from utils import core
 
 
 class GUI:
+    # TODO: change all into OOP
     def __init__(self):
         self.app = QtWidgets.QApplication(sys.argv)
         self.mainwindow = Ui_MainWindow()

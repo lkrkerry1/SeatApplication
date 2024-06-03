@@ -12,10 +12,10 @@ class Ui_MainWindow:
         self.main.setObjectName("main")
         if cst.DEBUG:
             print("current dir {}".format(os.getcwd()))
-            print("opening {}".format(cst.MAIN_FILE.replace("\\", "/")))
+            print("opening {}".format(cst.BACKGROUND_PICTURE.replace("\\", "/")))
         self.main.setStyleSheet(
             "#main{border-image:url($MAIN)}".replace(
-                "$MAIN", cst.MAIN_FILE.replace("\\", "/")
+                "$MAIN", cst.BACKGROUND_PICTURE.replace("\\", "/")
             )
         )
 

@@ -23,7 +23,7 @@ class SeatingTable:
         self.rule_path = rule_path
         self.output_path = output_path
         self.prob = []
-        self.table = {}
+        self.table = []
         self.names = {"other": []}
         self.rules = ({}, {})
         self.status = {}
@@ -61,10 +61,10 @@ class SeatingTable:
                     continue
                 self.names[idx].append(line)
                 self.status[line] = False
-                self.prob[line] = [
-                    [constants.START_PROBABILITY] * self.table_num["ColumnOfGroup"][i]
-                    for i in range(self.table_num["GroupNum"])
-                ]
+                # self.prob[line] = [
+                #     [constants.START_PROBABILITY] * self.table_num["ColumnOfGroup"][i]
+                #     for i in range(self.table_num["GroupNum"])
+                # ]
 
     def read_rules(self) -> None:
         """Reads the rules of the specified properties"""

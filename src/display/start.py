@@ -21,12 +21,16 @@ class Ui_StartWindow(MyWindow):
         self.video_widget.setGeometry(0, 0, 1600, 900)
         self.media_player.setVideoOutput(self.video_widget)
         if cst.DEBUG:
-            print("opening {}".format(cst.RANDOM_VEDIO).replace("\\", "/"))
+            print("opening {}".format(cst.RANDOMIZE_VEDIO).replace("\\", "/"))
         self.media = QtMultimedia.QMediaContent(
-            QtCore.QUrl.fromLocalFile(cst.RANDOM_VEDIO.replace("\\", "/"))
+            QtCore.QUrl.fromLocalFile(cst.RANDOMIZE_VEDIO.replace("\\", "/"))
         )
         self.media_player.setMedia(self.media)
         self.video_widget.lower()
+
+        self.skip_button = ClickableLabel(self.main)
+        self.skip_button.setGeometry(1570, 0, 1600, 30)
+        self.skip_button.clicked.connect(self.skip)
 
         # Display the table
         self.table = QtWidgets.QTableWidget(self.main)
@@ -55,6 +59,14 @@ class Ui_StartWindow(MyWindow):
         self.media_player.pause()
         self.media_player.stop()
         self.main.close()
+
+    def skip(self):
+        self.media_player.pause()
+        self.media_player.stop()
+        self.table.show()
+        self.back.show()
+        self.video_widget.hide()
+        self.table.lower()
 
     def finish(self):
         if (
