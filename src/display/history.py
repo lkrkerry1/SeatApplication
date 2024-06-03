@@ -5,17 +5,13 @@ from PyQt5 import QtWidgets
 import os, time
 
 
-class Ui_HistoryWindow:  # TODO: OOP
+class Ui_HistoryWindow(MyWindow):  # TODO: OOP
     def __init__(self):
-        self.main = QtWidgets.QWidget()
-        self.main.resize(1600, 900)
-        self.main.setObjectName("history")
-        self.back = ClickableLabel(self.main)
-        self.back.setGeometry(0, 0, 80, 80)
+        super().__init__()
+        self.setupUi("history")
 
-        self.layout = QtWidgets.QGridLayout()
-        self.main.setLayout(self.layout)
-        self.layout.addWidget(self.back, 0, 0)
+        self.glut = QtWidgets.QGridLayout()
+        self.main.setLayout(self.glut)
 
     def show(self):
         self.main.show()
@@ -41,18 +37,18 @@ class Ui_HistoryWindow:  # TODO: OOP
         self.nav = [QtWidgets.QLabel("文件"), QtWidgets.QLabel("操作")]
         for i, n in enumerate(self.nav):
             n.setFont(QtGui.QFont("宋体", 32, QtGui.QFont.Black))
-            self.layout.addWidget(n, 1, i)
+            self.glut.addWidget(n, 1, i)
 
         for i, file in enumerate(files):  # Make an index column
 
             data = QtWidgets.QLabel(file)
             data.setFont(QtGui.QFont("宋体", 32, QtGui.QFont.Black))
-            self.layout.addWidget(data, i + 2, 0)
+            self.glut.addWidget(data, i + 2, 0)
 
             buttons = QtWidgets.QWidget()
-            button_layout = QtWidgets.QHBoxLayout()
-            buttons.setLayout(button_layout)
-            self.layout.addWidget(buttons, i + 2, 1, QtCore.Qt.AlignLeft)
+            button_glut = QtWidgets.QHBoxLayout()
+            buttons.setLayout(button_glut)
+            self.glut.addWidget(buttons, i + 2, 1, QtCore.Qt.AlignLeft)
 
             if file == "":
                 continue
@@ -65,7 +61,7 @@ class Ui_HistoryWindow:  # TODO: OOP
                     "$MAIN", cs.OPEN_BUTTON.replace("\\", "/")
                 )
             )
-            button_layout.addWidget(open_button, 1)
+            button_glut.addWidget(open_button, 1)
             del_button = ClickableLabel(self.main)
             del_button.setObjectName("del_button")
             del_button.setFixedSize(60, 60)
@@ -74,4 +70,4 @@ class Ui_HistoryWindow:  # TODO: OOP
                     "$MAIN", cs.DEL_BUTTON.replace("\\", "/")
                 )
             )
-            button_layout.addWidget(del_button, 2)
+            button_glut.addWidget(del_button, 2)
