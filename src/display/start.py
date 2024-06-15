@@ -81,7 +81,7 @@ class Ui_StartWindow(MyWindow):
         self.col = seating.table_num["GroupNum"] * seating.table_num["LineOfGroup"]
         self.row = max(*seating.table_num["ColumnOfGroup"])
         self.table.setColumnCount(self.col)
-        self.table.setRowCount(self.row)
+        self.table.setRowCount(self.row + 1)
         for i in range(self.col):  # Make an index column
             data = QtWidgets.QTableWidgetItem(
                 str(i // seating.table_num["LineOfGroup"] + 1)
@@ -107,8 +107,8 @@ class Ui_StartWindow(MyWindow):
                 data.setFont(QtGui.QFont("宋体", 64, QtGui.QFont.Black))
                 data.setTextAlignment(QtCore.Qt.AlignCenter)
                 self.table.setItem(
-                    i + 1,
-                    j,
+                    j + 1,
+                    i,
                     data,
                 )
         for i in range(seating.table_num["GroupNum"]):
