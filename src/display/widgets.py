@@ -32,3 +32,6 @@ class MyWindow(QtWidgets.QWidget):
 
     def close(self):
         super().close()
+
+
+# TODO: title and other widgets

@@ -121,6 +121,11 @@ def reproduce(seating: io.SeatingTable) -> io.SeatingTable:
                 break
             seating.table[i][j] = table[cnt]
             cnt += 1
+    lens = max(len(i) for i in seating.table)
+    for i in range(len(seating.table)):
+        if len(seating.table[i]) <= lens:
+            seating.table[i].append([" ", " "])
+        seating.table_num["ColumnOfGroup"][i] = lens
     return seating
 
 
@@ -139,5 +144,7 @@ def rdesk():
         print("Rand Others: ", seating.table)
     seating = reproduce(seating)
     print(seating)
+    if constants.DEBUG:
+        print("Reproduce: ", seating.table)
     seating.save()
     return seating
