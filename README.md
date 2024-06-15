@@ -38,8 +38,9 @@ python -m pip install requirements.txt -r
 
 #### 参与贡献
 
-1.  Fork 本仓库
-2.  新建 Feat_xxx 分支
+1.  Fork 本仓库（或者下载）
+2.  新建 Feat_xxx 分支，如果为修复，新建Fix_xxx
 3.  提交代码
 4.  新建 Pull Request合并到dev！
+5.  等待代码合并
 
