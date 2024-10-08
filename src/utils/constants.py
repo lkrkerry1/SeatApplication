@@ -37,7 +37,7 @@ DELTA_PROBABILITY = [20, 15, 10, 5, 0]
 BUFFER_SIZE = 10
 BUTTON_SIZE = (50, 50)
 
-raise NotImplementedError
+# raise NotImplementedError
 
 
 import yaml
