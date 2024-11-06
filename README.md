@@ -26,7 +26,7 @@ python -m venv .env
 3.  安装环境
 
 ```bash
-pip install requirements.txt -r
+pip install -r requirements.txt
 ```
 
 4.  开始使用！
